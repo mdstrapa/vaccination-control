@@ -3,17 +3,6 @@ on: [push]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: maven
-      - name: Build with Maven
-        run: mvn  compile
     services:
       mysql:
         image: mysql/mysql-server:8.0.27
@@ -24,3 +13,15 @@ jobs:
           MYSQL_DATABASE: 'db'
           MYSQL_USER: 'user'
           MYSQL_PASSWORD: 'pass'
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with Maven
+        run: mvn package
+    
